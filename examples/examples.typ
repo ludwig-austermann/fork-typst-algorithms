@@ -1,6 +1,6 @@
 // check out the README to see all the options
 // for algo and code
-#import "../algo.typ": algo, i, d, comment, code
+#import "../algo.typ": algo, i, d, comment, code, keyword, no-keyword
 
 
 #algo(
@@ -20,7 +20,7 @@
 
 #algo(
   line-numbers: false,
-  keyword-styles: false
+  keyword-styles: none
 )[
   if $n < 0$:#i\
     return null#d\
@@ -67,6 +67,8 @@
   #comment(inline: true)[for instance]\
   #comment[for instance]\
   #box(stroke: black, inset: 2pt)[for]\
+  #no-keyword[for] #comment[used `#no-keyword[for]`]\
+  #keyword("superloop") #comment[used `#keyword[superloop]`]\
   let $y <- 1$\
   for $i <- 2$ to $n-1$:#i #comment[so dynamic!]\
     let $z <- x+y "if" x != 0$\

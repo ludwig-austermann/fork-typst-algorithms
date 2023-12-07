@@ -317,6 +317,13 @@
     return ()
   }
 
+  let is-custom-keyword(c) = {
+    if not c.has("children") { return false }
+    let c = c.children.last()
+
+    c.func() == metadata and type(c.value) == dictionary and "keyword" in c.value
+  }
+
   // concatenate consecutive non-whitespace elements
   // i.e. just combine everything that definitely aren't on separate lines
   let text-and-whitespaces = {
@@ -337,6 +344,8 @@
             keyword-styles(word)
           } else { word }
         ).join([ ])
+      } else if is-custom-keyword(child) {
+        temp += keyword-styles(child.children.last().value.at("keyword"))
       } else {
         temp += child
       }
@@ -597,6 +606,23 @@
   body
 }
 
+// Displays the body like a keyword.
+//
+// Parameters:
+//   body: Content.
+#let keyword(body) = {
+  _assert-in-algo("cannot use #keyword outside an algo element")
+  metadata((keyword: body))
+}
+
+// Prevents the body from displaying like a keyword.
+//
+// Parameters:
+//   body: Content.
+#let no-keyword(body) = {
+  _assert-in-algo("cannot use #no-keyword outside an algo element")
+  body
+}
 
 // Adds a comment to a line in an algo body.
 //
@@ -700,7 +726,7 @@
   let lines = _get-algo-lines(
     body,
     keywords,
-    if keyword-styles == false { x => x } else { keyword-styles }
+    if keyword-styles == none { x => x } else { keyword-styles }
   )
   let formatted-lines = _build-formatted-algo-lines(
     lines,
