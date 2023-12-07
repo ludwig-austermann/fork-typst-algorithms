@@ -64,12 +64,15 @@
     return $n$#d\
   \
   let $x <- 0$\
+  #comment(inline: true)[for instance]\
+  #comment[for instance]\
+  #box(stroke: black, inset: 2pt)[for]\
   let $y <- 1$\
   for $i <- 2$ to $n-1$:#i #comment[so dynamic!]\
-    let $z <- x+y$\
+    let $z <- x+y "if" x != 0$\
     $x <- y$\
     $y <- z$#d\
-    \
+    \ \
   return $x+y$
 ]
 
