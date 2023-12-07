@@ -69,6 +69,7 @@
   #box(stroke: black, inset: 2pt)[for]\
   #no-keyword[for] #comment[used `#no-keyword[for]`]\
   #keyword("superloop") #comment[used `#keyword[superloop]`]\
+  #box(stroke: black, inset: 2pt, keyword[superloop]) #comment[used `#box(..., keyword[superloop])`]\
   let $y <- 1$\
   for $i <- 2$ to $n-1$:#i #comment[so dynamic!]\
     let $z <- x+y "if" x != 0$\
